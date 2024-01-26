@@ -17,23 +17,22 @@ public class CustomerDAO {
 	public ArrayList<Customer> getAllCustomers() {
 		ArrayList<Customer> listOfCustomers = new ArrayList<>();
 		try {
-		File file = new File("Customer.dat");
-		if (!file.exists()) {
-		Customer c1 = new Customer("Mr.Smith");
-		Customer c2 = new Customer("Mrs.Smith");
-		listOfCustomers.add(c1);
-		c1.getPhoneNumbers().add(new PhoneNumber("145-1654-1495"));
-		listOfCustomers.add(c2);
-		saveCustomerList(listOfCustomers);
-		} else {
-		FileInputStream fis = new FileInputStream(file);
-		ObjectInputStream ois = new ObjectInputStream(fis);
-		listOfCustomers = (ArrayList<Customer>) 
-		ois.readObject();
-		ois.close();
-		}
+			File file = new File("Customer.dat");
+			if (!file.exists()) {
+				Customer c1 = new Customer("Mr.Smith");
+				Customer c2 = new Customer("Mrs.Smith");
+				listOfCustomers.add(c1);
+				c1.getPhoneNumbers().add(new PhoneNumber("145-1654-1495"));
+				listOfCustomers.add(c2);
+				saveCustomerList(listOfCustomers);
+			} else {
+				FileInputStream fis = new FileInputStream(file);
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				listOfCustomers = (ArrayList<Customer>) ois.readObject();
+				ois.close();
+			}
 		} catch (Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
 		}
 		return listOfCustomers;
 	}
@@ -51,5 +50,15 @@ public class CustomerDAO {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public Customer getCustomerByName(String name) {
+		List<Customer> cusList = getAllCustomers();
+		for (Customer cus : cusList) {
+			if (cus.getName().equalsIgnoreCase(name)) {
+				return cus;
+			}
+		}
+		return null;
 	}
 }
