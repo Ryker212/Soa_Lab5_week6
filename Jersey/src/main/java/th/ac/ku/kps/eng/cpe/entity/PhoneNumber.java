@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 public class PhoneNumber implements Serializable {
 	private String number;
-
+	public PhoneNumber() {
+		
+	}
 	public PhoneNumber(String number) {
 		this.number = number;
 	}
